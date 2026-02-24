@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kertész Erzsébet – Bőrregeneráció & Fényterápia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #faf9f7;
+      --cream: #f3ede6;
+      --rose: #c9a99a;
+      --rose-dark: #a07060;
+      --stone: #8a8078;
+      --text: #2c2520;
+      --text-light: #7a6e68;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.6rem 4rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400;
+      letter-spacing: 0.04em; color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--rose-dark); font-style: italic; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-light);
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--rose-dark); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+      animation: fadeUp 1s ease both;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rose-dark); margin-bottom: 2rem;
+    }
+    .hero-left h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero-left h1 em { font-style: italic; color: var(--rose-dark); }
+    .hero-sub {
+      font-size: 1rem; line-height: 1.8; color: var(--text-light);
+      max-width: 420px; margin-bottom: 3rem;
+    }
+    .btn {
+      display: inline-block; padding: 1rem 2.5rem;
+      background: var(--text); color: var(--white); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s;
+      border: none; cursor: pointer; font-family: 'Jost', sans-serif;
+    }
+    .btn:hover { background: var(--rose-dark); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; border: 1px solid var(--text);
+      color: var(--text); margin-left: 1rem;
+    }
+    .btn-outline:hover { background: var(--text); color: var(--white); }
+
+    .hero-right {
+      background: var(--cream); position: relative; overflow: hidden;
+      animation: fadeIn 1.4s ease both;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,169,154,0.25) 0%, transparent 70%);
+    }
+    .hero-art {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-circle {
+      width: 340px; height: 340px; border-radius: 50%;
+      border: 1px solid rgba(201,169,154,0.4);
+      position: relative; animation: rotateSlow 30s linear infinite;
+    }
+    .hero-circle::before {
+      content: ''; position: absolute; inset: 20px; border-radius: 50%;
+      border: 1px solid rgba(201,169,154,0.25);
+    }
+    .hero-circle::after {
+      content: ''; position: absolute; inset: 60px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,154,0.18) 0%, transparent 70%);
+    }
+    .hero-initial {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 7rem; font-weight: 300;
+      color: rgba(160,112,96,0.2); font-style: italic;
+    }
+    .hero-badge {
+      position: absolute; bottom: 3rem; left: 3rem;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* INTRO STRIP */
+    .intro-strip {
+      background: var(--text); color: var(--white);
+      padding: 2.5rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .intro-strip p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-style: italic; font-weight: 300;
+      opacity: 0.9; max-width: 600px;
+    }
+    .strip-detail {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--rose); text-align: right;
+    }
+
+    /* SERVICES */
+    .services { padding: 8rem 6rem; background: var(--white); }
+    .section-header { margin-bottom: 5rem; }
+    .section-tag {
+      display: block;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rose-dark); margin-bottom: 1.2rem;
+    }
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.5rem); font-weight: 300; line-height: 1.2;
+    }
+    .section-header p {
+      max-width: 520px; color: var(--text-light);
+      line-height: 1.8; margin-top: 1rem; font-size: 0.95rem;
+    }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+    .service-card {
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(0,0,0,0.08);
+      position: relative; overflow: hidden; cursor: default;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--cream);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .service-card:hover::before { transform: translateY(0); }
+    .service-card > * { position: relative; }
+    .service-number {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem; color: var(--rose);
+      margin-bottom: 2rem; letter-spacing: 0.1em;
+    }
+    .service-icon { width: 48px; height: 48px; margin-bottom: 1.5rem; display: block; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem;
+    }
+    .service-card p { font-size: 0.88rem; line-height: 1.8; color: var(--text-light); }
+
+    /* ABOUT */
+    .about {
+      background: var(--off-white);
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
+    }
+    .about-visual { background: var(--cream); position: relative; overflow: hidden; }
+    .about-visual::after {
+      content: 'B'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22rem; font-weight: 300;
+      color: rgba(201,169,154,0.12); font-style: italic; line-height: 1;
+    }
+    .about-lines { position: absolute; bottom: 3rem; right: 3rem; text-align: right; z-index: 1; }
+    .about-lines span {
+      display: block; font-size: 0.7rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--stone); line-height: 2.2;
+    }
+    .about-content { padding: 6rem 5rem; display: flex; flex-direction: column; justify-content: center; }
+    .about-content blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-style: italic; font-weight: 300;
+      line-height: 1.4; color: var(--text); margin-bottom: 2.5rem;
+      border-left: 2px solid var(--rose); padding-left: 1.5rem;
+    }
+    .about-content p { font-size: 0.92rem; line-height: 1.9; color: var(--text-light); margin-bottom: 1rem; }
+    .about-name {
+      display: block; margin-top: 2.5rem;
+      font-size: 0.75rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rose-dark);
+    }
+
+    /* PROCESS */
+    .process { padding: 8rem 6rem; background: var(--white); }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; margin-top: 5rem; position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute; top: 24px; left: 12.5%; right: 12.5%;
+      height: 1px; background: var(--rose); opacity: 0.3;
+    }
+    .process-step { padding: 0 2rem; }
+    .step-dot {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid var(--rose);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--rose-dark);
+      margin-bottom: 2rem; background: var(--white);
+    }
+    .process-step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; margin-bottom: 0.8rem;
+    }
+    .process-step p { font-size: 0.85rem; line-height: 1.8; color: var(--text-light); }
+
+    /* CONTACT */
+    .contact {
+      background: var(--cream); padding: 8rem 6rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem;
+    }
+    .contact-left > p { font-size: 0.92rem; line-height: 1.8; color: var(--text-light); margin-bottom: 2.5rem; }
+    .contact-detail { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 3rem; }
+    .contact-detail span { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--stone); display: block; }
+    .contact-detail a { color: var(--text); text-decoration: none; font-size: 1rem; transition: color 0.3s; }
+    .contact-detail a:hover { color: var(--rose-dark); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group label {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone);
+    }
+    .form-group input, .form-group textarea {
+      border: none; border-bottom: 1px solid rgba(0,0,0,0.15);
+      background: transparent; padding: 0.8rem 0;
+      font-family: 'Jost', sans-serif; font-size: 0.95rem; color: var(--text); outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--rose-dark); }
+    .form-group textarea { resize: none; height: 100px; }
+
+    /* COMING SOON */
+    .coming-soon-bar {
+      background: var(--off-white);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 6rem;
+    }
+    .coming-soon-inner {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      max-width: 860px; margin: 0 auto;
+    }
+    .coming-soon-title {
+      display: block;
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rose-dark); margin-bottom: 0.4rem; font-weight: 500;
+    }
+    .coming-soon-text { font-size: 0.85rem; line-height: 1.7; color: var(--text-light); }
+
+    /* FOOTER */
+    footer {
+      background: var(--text); color: rgba(255,255,255,0.6);
+      padding: 3rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: rgba(255,255,255,0.9); font-style: italic;
+    }
+    footer p { font-size: 0.78rem; letter-spacing: 0.05em; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes rotateSlow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+    /* Scroll reveal — visible by default, hidden class added via JS */
+    .reveal { transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.hidden { opacity: 0; transform: translateY(24px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.4rem 2rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 40vh; }
+      .hero-left { padding: 4rem 2rem; }
+      .intro-strip { padding: 2rem; }
+      .services { padding: 5rem 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-visual { min-height: 260px; }
+      .about-content { padding: 4rem 2rem; }
+      .process { padding: 5rem 2rem; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .contact { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      .coming-soon-bar { padding: 2rem; }
+      footer { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Kertész <span>Erzsébet</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Kezelések</a></li>
+      <li><a href="#about">Rólam</a></li>
+      <li><a href="#process">Folyamat</a></li>
+      <li><a href="#contact">Kapcsolat</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Bőrregeneráció · Fényterápia · Professzionális bőrápolás</p>
+      <h1>A bőröd<br/><em>természetes</em><br/>ragyogása</h1>
+      <p class="hero-sub">Üdvözöllek! Böbe vagyok – bőrregenerációs specialista. Nem csupán szépségkezeléseket kínálok, hanem tartós megoldásokat a bőröd egészségéért és megújulásáért.</p>
+      <div>
+        <a href="#contact" class="btn">Időpontot kérek</a>
+        <a href="#services" class="btn btn-outline">Kezelések</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-art">
+        <div class="hero-circle"></div>
+        <div class="hero-initial">B</div>
+      </div>
+      <div class="hero-badge">Budapest · Személyes kezelések</div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <p>„A bőr nem csupán külső burok — a belső egyensúly tükre."</p>
+    <div class="strip-detail">10+ év tapasztalat<br/>Egyéni kezelési terv</div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <span class="section-tag">Kezelések</span>
+      <h2>Amit kínálok</h2>
+      <p>Minden kezelés egyénre szabott, mert minden bőr más. Az első konzultáció során megismerjük a bőröd igényeit, és közösen dolgozzuk ki a legjobb megközelítést.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-number">01</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/>
+          <line x1="24" y1="2" x2="24" y2="8"/><line x1="24" y1="40" x2="24" y2="46"/>
+          <line x1="2" y1="24" x2="8" y2="24"/><line x1="40" y1="24" x2="46" y2="24"/>
+        </svg>
+        <h3>Fényterápia</h3>
+        <p>Speciális LED-fényterápiával stimuláljuk a bőr természetes megújulási folyamatait. Hatékonyan csökkenti a gyulladásokat, és serkenti a kollagéntermelést.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-number">02</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <ellipse cx="24" cy="24" rx="14" ry="18"/>
+          <path d="M10 24 Q24 14 38 24"/><path d="M10 24 Q24 34 38 24"/>
+        </svg>
+        <h3>Mélybőr-tisztítás</h3>
+        <p>Professzionális bőrtisztítás, amely eltávolítja a szennyeződéseket, kitisztítja a pórusokat, és előkészíti a bőrt a hatóanyagok befogadására.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-number">03</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <path d="M8 36 C 8 20 24 6 24 6 C 24 6 40 20 40 36 C 40 42 33 46 24 46 C 15 46 8 42 8 36Z"/>
+          <path d="M18 36 C 18 28 24 18 24 18 C 24 18 30 28 30 36"/>
+        </svg>
+        <h3>Bőrregeneráció</h3>
+        <p>Komplex regeneráló kezelések, amelyek a bőr mélyebb rétegeiben fejtik ki hatásukat. Ideális érett, fáradt vagy igénybevett bőrtípusokhoz.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-number">04</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <rect x="8" y="16" width="32" height="20" rx="2"/>
+          <path d="M16 16 V 12 Q 24 6 32 12 V 16"/><circle cx="24" cy="26" r="4"/>
+        </svg>
+        <h3>Hatóanyag-kezelés</h3>
+        <p>Koncentrált szérum- és ampullakezelések, amelyek célzottan pótolják a hiányzó tápanyagokat és vízszintet a bőr rétegein belül.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-number">05</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <path d="M12 38 Q 12 10 24 10 Q 36 10 36 38"/>
+          <path d="M17 32 Q 24 18 31 32"/>
+          <line x1="24" y1="10" x2="24" y2="6"/>
+        </svg>
+        <h3>Bőrkonsultáció</h3>
+        <p>Részletes bőranalízis és egyénre szabott kezelési terv kidolgozása. Az alap, amelyre minden sikeres kezelés épül.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-number">06</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#c9a99a" stroke-width="1.2">
+          <circle cx="24" cy="20" r="10"/>
+          <path d="M14 20 Q 14 38 24 42 Q 34 38 34 20"/>
+        </svg>
+        <h3>Arcmasszázs</h3>
+        <p>Relaxáló és keringésserkentő arcmasszázs, amely javítja a bőr tónusát, csökkenti a duzzanatokat és mély ellazulást nyújt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-visual">
+      <div class="about-lines">
+        <span>Certified Specialist</span>
+        <span>10+ Year Experience</span>
+        <span>Personalized Care</span>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <span class="section-tag">Rólam</span>
+      <blockquote>„Mindenki megérdemli, hogy jól érezze magát a bőrében."</blockquote>
+      <p>Böbe vagyok — bőrregenerációs specialista. Több mint egy évtizede foglalkozom a bőr mélyebb folyamataival, és hiszem, hogy az igazi eredményhez idő, türelem és személyre szabott megközelítés szükséges.</p>
+      <p>Nem csupán kezeléseket végzek — együtt értjük meg a bőröd igényeit, és olyan megoldásokat dolgozunk ki, amelyek valóban, tartósan működnek. Legyen szó fényterápiáról, regeneráló kezelésről vagy egyszerűen csak a megfelelő bőrápolási rutinról.</p>
+      <span class="about-name">— Kertész Erzsébet (Böbe)</span>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="section-header reveal">
+      <span class="section-tag">Hogyan dolgozom</span>
+      <h2>A kezelés folyamata</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-dot">1</div>
+        <h4>Konzultáció</h4>
+        <p>Megismerjük a bőröd típusát, problémáit, és a céljaidat. Részletes bőranalízis.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-dot">2</div>
+        <h4>Kezelési terv</h4>
+        <p>Egyéni program kidolgozása, amely pontosan a te bőröd igényeihez igazodik.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-dot">3</div>
+        <h4>Kezelések</h4>
+        <p>A kiválasztott kezelések elvégzése, professzionális eszközökkel és hatóanyagokkal.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-dot">4</div>
+        <h4>Követés</h4>
+        <p>A bőröd állapotának nyomon követése, a terv finomhangolása az eredmények alapján.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-left reveal">
+      <span class="section-tag">Kapcsolat</span>
+      <h2>Foglalj időpontot</h2>
+      <p>Az első konzultáció díjmentes. Írj, vagy hívj nyugodtan — szívesen segítek megtalálni a legjobb kezelést a bőröd számára.</p>
+      <div class="contact-detail">
+        <div>
+          <span>Telefon</span>
+          <a href="tel:+36301234567">+36 30 123 4567</a>
+        </div>
+        <div>
+          <span>E-mail</span>
+          <a href="mailto:bobe@example.hu">bobe@example.hu</a>
+        </div>
+        <div>
+          <span>Helyszín</span>
+          <a href="#">Budapest (pontos cím egyeztetés után)</a>
+        </div>
+      </div>
+      <a href="tel:+36301234567" class="btn">Hívj most</a>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label>Neved</label>
+        <input type="text" placeholder="Kovács Anna"/>
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" placeholder="anna@example.hu"/>
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="tel" placeholder="+36 30 …"/>
+      </div>
+      <div class="form-group">
+        <label>Üzenet</label>
+        <textarea placeholder="Milyen kezelés érdekel, vagy mi a bőrproblémád?"></textarea>
+      </div>
+      <button class="btn" type="button">Üzenet küldése</button>
+    </div>
+  </section>
+
+  <!-- COMING SOON BANNER -->
+  <div class="coming-soon-bar">
+    <div class="coming-soon-inner">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a07060" stroke-width="1.5" style="flex-shrink:0;margin-top:3px">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <div>
+        <span class="coming-soon-title">Tájékoztató közlemény</span>
+        <p class="coming-soon-text">Ez a weboldal jelenleg fejlesztés alatt áll, és még nem üzemel. A vállalkozás indulásának pontos időpontjáról hamarosan tájékoztatást adunk. Köszönjük türelmét.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Kertész Erzsébet</div>
+    <p>© 2025 · Bőrregeneráció & Fényterápia · Budapest</p>
+    <p>Minden jog fenntartva.</p>
+  </footer>
+
+  <script>
+    // Elements are visible by default; JS adds .hidden class before observer fires
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.remove('hidden');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(r => {
+      r.classList.add('hidden');
+      io.observe(r);
+    });
+  </script>
+</body>
+</html>
